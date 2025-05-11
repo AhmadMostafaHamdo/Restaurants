@@ -4,6 +4,7 @@ import Error from "../pages/Error";
 import Home from "../pages/Home";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
+import ForgotPassword from "../pages/auth/ForgotPassword";
 const AppRouter = createBrowserRouter([
   {
     path: "/",
@@ -15,6 +16,10 @@ const AppRouter = createBrowserRouter([
   {
     path: "register",
     element: <Register />,
+  },
+  {
+    path: "forgot-password",
+    element: <ForgotPassword />,
   },
 ]);
 export default AppRouter;
