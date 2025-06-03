@@ -1,0 +1,55 @@
+.foodItem {
+  width: 200px;
+  height: fit-content;
+}
+.foodItemImgContainer {
+  position: relative;
+}
+.foodItemImg {
+  border-radius: 3px;
+  width: 100%;
+}
+.foodItemCount {
+  position: absolute;
+  display: flex;
+  bottom: 10px;
+  background-color: white;
+  right: 10px;
+  border-radius: 12px;
+  padding: 2px;
+}
+.foodItemCount div {
+  display: flex;
+}
+.foodItemCount svg {
+  cursor: pointer;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+}
+.foodItemCount div > :nth-child(1) {
+  background: #ee2e2e;
+  color: white;
+}
+.foodItemCount div > :nth-child(3) {
+  background: #4caf50;
+  color: white;
+}
+.foodItemCount span {
+  margin: 0 5px;
+}
+.foodItemInfo {
+}
+.foodItemNameRating {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.foodItemDescription {
+  color: #676767;
+}
+.foodItemPrice {
+  color: #ff5722;
+  font-weight: 700;
+  font-size: 22px;
+}

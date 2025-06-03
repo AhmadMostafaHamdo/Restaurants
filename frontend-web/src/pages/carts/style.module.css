@@ -1,0 +1,16 @@
+.carts p {
+  color: #555;
+  font-size: 18px;
+}
+.totalCarts {
+  margin-top: 50px;
+  width: 300px;
+}
+
+.carts p:nth-of-type(3) {
+  background-color: #eee;
+  width: fit-content;
+  font-size: 22px;
+  padding: 7px;
+  font-weight: 700;
+}

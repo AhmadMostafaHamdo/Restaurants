@@ -10,13 +10,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.8.2",
     "axios": "^1.9.0",
     "bootstrap": "^5.3.6",
+    "framer-motion": "^12.12.1",
     "lottie-react": "^2.4.1",
+    "lucide-react": "^0.510.0",
     "react": "^19.1.0",
     "react-bootstrap": "^2.10.9",
+    "react-countup": "^6.5.3",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^7.6.0"
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.6.0",
+    "react-toastify": "^11.0.5",
+    "redux": "^5.0.1",
+    "redux-persist": "^6.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",

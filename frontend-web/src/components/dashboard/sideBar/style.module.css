@@ -1,0 +1,19 @@
+.sidebar {
+  width: 220px;
+  padding: 20px;
+  border-right: 1px solid #eee;
+  height: calc(100vh - 70px);
+}
+.sidebarOptions {
+}
+.sidebarOption {
+  display: flex;
+  gap: 5px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 20px;
+  color: #9a9a9a;
+}
+.active {
+  background-color: red;
+  font-size: 30px;
+}

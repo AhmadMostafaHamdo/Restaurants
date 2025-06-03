@@ -1,0 +1,105 @@
+.header {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(8, 8, 8, 0.548);
+  box-shadow: 0 4px 1px 1px rgba(0, 0, 0, 0.192);
+}
+nav.c {
+  background-color: red;
+}
+.logo {
+  color: tomato;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 30px;
+  -webkit-text-stroke-width: 2px;
+  font-style: italic;
+}
+ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  list-style: none;
+  flex: .8;
+  margin-bottom: 0 !important;
+}
+ul.open {
+  display: none;
+}
+ul li a {
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+}
+.headerRight .search {
+  cursor: pointer;
+  display: inline-block;
+}
+.headerRight .menu {
+  display: none;
+  top: -22px;
+  left: 10px;
+}
+.headerRight .menu svg {
+  cursor: pointer;
+}
+.headerRight .shoopingItems {
+  display: inline-block;
+  position: relative;
+  margin: 0 7px;
+}
+.headerRight .shoopingItems span {
+  position: absolute;
+  top: -17px;
+  right: 3px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: #ff5722;
+  text-align: center;
+  line-height: 25px;
+  color: white;
+  font-weight: 700;
+}
+.headerRight .shoopingItems a {
+  color: black;
+  margin: 0 10px;
+}
+
+.btn {
+  background-color: #ff5722;
+  outline: none;
+  border: 0;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+@media (max-width: 991px) {
+  .headerRight .menu {
+    display: inline-block;
+  }
+  ul {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    flex-direction: column;
+    background: #ff5722;
+    height: 40vh;
+    width: 69vw;
+    border-radius: 10px;
+    display: none;
+  }
+  .open {
+    display: flex !important;
+  }
+  ul li a {
+    color: white;
+    font-size: 21px;
+  }
+}

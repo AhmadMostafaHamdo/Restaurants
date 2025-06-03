@@ -1,0 +1,31 @@
+.cart {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 22px;
+  color: #555;
+}
+
+.imageTextWrapper {
+  display: flex;
+  align-items: center;
+  flex: 0.2;
+}
+.imageTextWrapper img {
+  width: 60px;
+  height: 60px;
+  border-radius: 2px;
+  object-fit: cover;
+  margin-right: 20px;
+}
+.cartCounter {
+  position: relative;
+  top: 27px;
+}
+@media(max-width:667px) {
+  .imageTextWrapper {
+    flex-direction: column;
+    flex: .5;
+    align-items: start;
+  }
+}
