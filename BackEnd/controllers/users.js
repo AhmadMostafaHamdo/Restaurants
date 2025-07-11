@@ -1,121 +1,99 @@
+// 👥 User Controller
+const { validateUserUpdate, User } = require("../model/User");
 const asyncHandler = require("express-async-handler");
-const bcrypt = require("bcryptjs");
-const {
-  User,
-  validateUserRegister,
-  validateUserUpdate,
-} = require("../model/User");
-const jwt = require("jsonwebtoken");
-// Get All Users
-const getAllUsers = asyncHandler(async (req, res) => {
-  const users = await User.find({});
-  return res.status(200).json({ status: "successed", data: users });
+const getAllUsers = asyncHandler(async (_req, res) => {
+  const users = await User.find({}, { password: 0, __v: 0 });
+  res.status(200).json({ status: "success", data: users });
 });
-// Get User By Id
+
 const getUserById = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
-  if (!user) {
-    return res
-      .status(200)
-      .json({ status: "succussed", data: { msg: "user not found" } });
-  }
-  return res.status(200).json({ status: "ssuccusseduccussed", data: user });
+  if (!user)
+    return res.status(404).json({ status: "fail", msg: "User not found" });
+  res.status(200).json({ status: "success", data: user });
 });
 
-// Create User
-const createUser = asyncHandler(async (req, res) => {
-  const { error } = validateUserRegister(req.body);
-  const { name, email, password, phone } = req.body;
-  if (error) {
-    return res
-      .status(400)
-      .json({ status: "Failed", data: { msg: error.details[0].message } });
-  }
-  const user = await User.findOne({ email }, { _v: 0, password: 0 });
-  if (user) {
-    return res.status(422).json({
-      status: "failed",
-      data: { msg: "this email has already taken" },
-    });
-  }
-  const hashPassword = await bcrypt.hash(password, 10);
-  const newUser = new User({ name, email, password: hashPassword, phone });
-  const token = jwt.sign(
-    { id: newUser._id, role: newUser.role },
-    process.env.SECRETKEY,
-    { expiresIn: "100d" }
-  );
-  newUser.token = token;
-  await newUser.save();
-  console.log({ ...newUser._doc, password: undefined }); // استخدم _doc لتجنب عرض الدوال
-
-  return res.status(201).json({
-    status: "successed",
-    data: { msg: "user has been created succussfuly", user: newUser },
-  });
-});
-// Update User
 const updateUser = asyncHandler(async (req, res) => {
   const { error } = validateUserUpdate(req.body);
-  if (error) {
+  if (error)
     return res
       .status(400)
-      .json({ status: "Failed", data: { msg: error.details[0].message } });
-  }
-  const { name, email, password, phone } = req.body;
-  const user = await User.findOne({ _id: req.params.id });
+      .json({ status: "fail", msg: error.details[0].message });
+
+  const updated = await User.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
+  if (!updated)
+    return res.status(404).json({ status: "fail", msg: "User not found" });
+
+  res
+    .status(200)
+    .json({ status: "success", data: updated, msg: "added balance " });
+});
+const increaseBalance = asyncHandler(async (req, res) => {
+  const { balance, email } = req.body;
+
+  // 1. Find user by email (corrected query)
+  const user = await User.findOne({ email });
   if (!user) {
-    return res
-      .status(404)
-      .json({ status: "failed", data: { msg: "this user unexist" } });
+    return res.status(404).json({ msg: "User not found" });
   }
-  const userUpdated = await User.findOneAndUpdate(
-    { _id: req.params.id },
+  if (typeof balance !== "number" || balance <= 0) {
+    return res.status(400).json({
+      msg: "Invalid balance amount",
+    });
+  }
+
+  // 2. Calculate new balance
+  const newBalance = +user.balance + balance;
+
+  // 3. Update user (corrected update logic)
+  const updatedUser = await User.findOneAndUpdate(
+    { email },
+    { $set: { balance: newBalance } },
+    { new: true } // Return updated document
+  );
+
+  // 4. Proper response with updated data
+  res.status(200).json({
+    status: "success",
+    data: updatedUser,
+    msg: "Balance increased successfully",
+  });
+});
+const decriseBalance = asyncHandler(async (req, res) => {
+  const { balance, email } = req.body;
+  const user = await User.findOne(email);
+  if (!user) {
+    return res.status(404).json({ msg: "user not found" });
+  }
+  await User.updateOne(
+    { email },
     {
       $set: {
-        name,
-        email,
-        password,
-        phone,
+        balance: balance - balance,
       },
     }
   );
-  userUpdated.save();
-  return res.status(200).json({
-    status: "successed",
-    data: { msg: "user has been updated", user: userUpdated },
-  });
+  res
+    .status(200)
+    .json({ status: "success", data: updated, msg: "decrise balance" });
 });
-// Delete All Users
-const deleteAllUsers = asyncHandler(async (req, res) => {
-  const user = await User.deleteMany({});
-  if (!user) {
-    return res
-      .status(404)
-      .json({ status: "failed", data: { msg: "no users" } });
-  }
-  return res.status(200).json({
-    status: "successed",
-    data: { msg: "users have been deleted successfuly" },
-  });
-}); // Delete User
 const deleteUser = asyncHandler(async (req, res) => {
-  const user = await User.deleteOne({ _id: req.params.id });
-  if (!user) {
-    return res
-      .status(404)
-      .json({ status: "failed", data: { msg: "this user unexist" } });
+  const deleted = await User.findByIdAndDelete(req.params.id);
+  if (!deleted)
+    return res.status(404).json({ status: "fail", msg: "User not found" });
+  if (deleted.role === "restaurantAdmin" && deleted.restaurant) {
+    await Restaurant.findByIdAndDelete(deleted.restaurant);
   }
-  return res.status(200).json({
-    status: "successed",
-    data: { msg: "user has been deleted successfuly" },
-  });
+  res.status(200).json({ status: "success", msg: "User deleted" });
 });
+
 module.exports = {
   getAllUsers,
   getUserById,
-  createUser,
   updateUser,
-  deleteAllUsers,
   deleteUser,
+  increaseBalance,
+  decriseBalance,
 };

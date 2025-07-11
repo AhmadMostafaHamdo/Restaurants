@@ -1,20 +1,19 @@
 const express = require("express");
-const router = express.Router();
 const {
   getAllUsers,
   getUserById,
-  createUser,
   updateUser,
   deleteUser,
-  deleteAllUsers,
+  decriseBalance,
+  increaseBalance,
 } = require("../controllers/users");
+
+const router = express.Router();
+
 router.get("/", getAllUsers);
 router.get("/:id", getUserById);
-router.post("/", createUser);
 router.patch("/:id", updateUser);
-deleteUser;
-router.delete("/", deleteAllUsers);
 router.delete("/:id", deleteUser);
-deleteUser;
-
+router.put("/add-balance", increaseBalance);
+router.put("/decrise-balance", decriseBalance);
 module.exports = router;

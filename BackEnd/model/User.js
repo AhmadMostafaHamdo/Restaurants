@@ -1,50 +1,41 @@
-const Joi = require("joi");
 const mongoose = require("mongoose");
-const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    trim: true,
+const Joi = require("joi");
+
+const userSchema = new mongoose.Schema(
+  {
+    name: { type: String, required: true, trim: true },
+    balance: { type: String, trim: true, default: "1000" },
+    password: { type: String, required: true, trim: true, minlength: 8 },
+    email: { type: String, required: true, unique: true, trim: true },
+    phone: { type: String, required: true, trim: true },
+    image: { type: String },
+    cartItem: { type: Object, default: {} },
+    role: {
+      type: String,
+      enum: ["user", "admin", "resturantAdmin"],
+      default: "user",
+    },
   },
-  password: {
-    type: String,
-    required: true,
-    trim: true,
-    min: 8,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  phone: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  role: {
-    type: String,
-    enum: ["user", "admin"],
-    default: "user",
-  },
-});
-const validateUserRegister = (obj) => {
-  const schema = Joi.object({
+  { minimize: false }
+);
+
+// ✅ Validations
+const validateUserRegister = (obj) =>
+  Joi.object({
     name: Joi.string().required().trim(),
+    image: Joi.string(),
     password: Joi.string().required().trim().min(8),
     email: Joi.string().required().trim().email(),
     phone: Joi.string().required().trim(),
-  });
-  return schema.validate(obj);
-};
-const validateUserUpdate = (obj) => {
-  const schema = Joi.object({
+  }).validate(obj);
+
+const validateUserUpdate = (obj) =>
+  Joi.object({
     name: Joi.string().trim(),
     password: Joi.string().trim().min(8),
     email: Joi.string().trim().email(),
     phone: Joi.string().trim(),
-  });
-  return schema.validate(obj);
-};
+  }).validate(obj);
+
 const User = mongoose.model("User", userSchema);
 module.exports = { User, validateUserRegister, validateUserUpdate };
