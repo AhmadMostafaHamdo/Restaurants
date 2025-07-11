@@ -30,12 +30,8 @@ const Add = () => {
     formData.append("price", Number(data.price));
     formData.append("category", data.category);
     formData.append("image", image);
-    const res = await axios.post(
-      "http://localhost:5000/api/food/add",
-      formData
-    );
+    const res = await axios.post("/food/add", formData);
     if (res.data.status === "success") {
-      console.log(res.data);
       setData({
         name: "",
         description: "",
@@ -100,9 +96,9 @@ const Add = () => {
             onChange={(e) => onchangeHandler(e)}
           />
         </div>
-        <div className={filed} style={{ display: "flex", gap: "20px" }}>
-          <div>
-            <label htmlFor="category">Product Category</label>
+        <div className={filed} style={{display:"flex"}} >
+          <div >
+            <label htmlFor="category" style={{width:"130px"}}>Category</label>
             <br />
             <select
               id="category"
@@ -121,7 +117,7 @@ const Add = () => {
             </select>
           </div>
           <div>
-            <label htmlFor="restarant">Product Restarant</label>
+            <label htmlFor="restarant"> Restarant</label>
             <br />
             <select
               id="category"
@@ -135,7 +131,7 @@ const Add = () => {
           </div>
         </div>
         <div className={filed}>
-          <label htmlFor="price">Product Price</label>
+          <label htmlFor="price" >Product Price</label>
           <input
             type="text"
             id="price"

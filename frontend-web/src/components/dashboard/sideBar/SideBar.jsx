@@ -1,11 +1,11 @@
 import { BookA, CirclePlus, ClipboardList } from "lucide-react";
 import style from "./style.module.css";
 import { NavLink } from "react-router-dom";
-const { sidebar, sidebarOptions, sidebarOption, active } = style;
+const { sidebar, sidebarOption, active } = style;
 const SideBar = () => {
   return (
     <div className={sidebar}>
-      <div className={sidebarOptions}>
+      <div>
         <NavLink
           to="add"
           className={`${sidebarOption} ${(isActive) =>

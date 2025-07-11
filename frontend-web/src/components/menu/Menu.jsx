@@ -4,12 +4,10 @@ const { menu, menuItem, menuList, img, active } = style;
 import { listOfMenu } from "../../api/listOfMenu";
 import Restaurants from "../restaurants/restarants/Restarants";
 const Menu = ({ category, setCategory, restaurant, setRestaurant }) => {
-  console.log(restaurant);
-  // listOfMenu.map((ele) => console.log( ele.resturants[0]));
   return (
     <Container>
       <div className={menu} id="menu">
-        <Restaurants restaurant={restaurant} setRestaurant={setRestaurant} />
+        <Restaurants setRestaurant={setRestaurant} />
         <h1>Explore our menu</h1>
         <p>
           Choose from a diverse menu featuring a delectable array of dishes.Our

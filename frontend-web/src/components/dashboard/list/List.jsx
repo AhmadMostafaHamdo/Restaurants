@@ -11,14 +11,14 @@ const List = () => {
   const [list, setList] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get("http://localhost:5000/api/food/list");
+      const res = await axios.get("/food/list");
       setList(res.data.food);
     };
     fetchData();
   }, []);
   const handelRemoveFood = async (id) => {
     try {
-      await axios.delete("http://localhost:5000/api/food/remove", {
+      await axios.delete("/food/remove", {
         data: {
           id: id,
         },
@@ -29,7 +29,6 @@ const List = () => {
       console.log(error);
     }
   };
-  console.log(list ? "d" : "");
   return (
     <div style={{ width: "60%" }}>
       {list.length !== 0 ? (

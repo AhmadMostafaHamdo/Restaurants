@@ -4,13 +4,12 @@
   border-right: 1px solid #eee;
   height: calc(100vh - 70px);
 }
-.sidebarOptions {
-}
+
 .sidebarOption {
   display: flex;
   gap: 5px;
   border-bottom: 1px solid #eee;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   color: #9a9a9a;
 }
 .active {

@@ -1,38 +1,15 @@
 import AuthForm from "../../components/Form/Form";
-const fields = [
-  {
-    label: "userName",
-    type: "text",
-    placeholder: "userName",
-  },
-  {
-    label: "email",
-    type: "email",
-    placeholder: "email",
-  },
-  {
-    label: "password",
-    type: "password",
-    placeholder: "password",
-  },
-  {
-    label: "phone",
-    type: "text",
-    placeholder: "phone",
-  },
-];
+import { fieldsRegister } from "./fields";
 function Register() {
   return (
     <>
       <AuthForm
-        title="create a new account"
-        fields={fields}
+        title="register"
+        fields={fieldsRegister}
         buttonText="register"
         link="/login"
       />
-      <div>
-      </div>
-      
+      <div></div>
     </>
   );
 }

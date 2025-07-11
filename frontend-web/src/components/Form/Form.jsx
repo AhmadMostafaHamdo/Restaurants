@@ -1,71 +1,65 @@
+import Loading from "../feedback/loading/Loading";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import style from "../../pages/auth/style.module.css";
 import { Container, Form } from "react-bootstrap";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
-const {
-  container,
-  register,
-  titleAuth,
-  groupForm,
-  label,
-  input,
-  btnParent,
-  btn,
-} = style;
-
-const containerVariants = {
-  hidden: {
-    opacity: 0,
-    y: 50,
-    scale: 0.95,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      type: "spring",
-      stiffness: 400,
-      damping: 20,
-      staggerChildren: 0.1,
-      when: "beforeChildren",
-    },
-  },
-  exit: {
-    opacity: 0,
-    y: -50,
-    scale: 0.95,
-    transition: {
-      duration: 0.5,
-      ease: "easeInOut",
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut",
-    },
-  },
-};
+import { ToastContainer } from "react-toastify";
+import {
+  containerVariants,
+  itemVariants,
+} from "../../frammer-motion/framerMotion";
+import { authThunk } from "../../redux/auth/authThunk/authThunk";
+import { updateThunk } from "../../redux/auth/updateThunk/updateThunk";
+const { container, register, titleAuth, groupForm, input, btnParent, btn } =
+  style;
 
 function AuthForm({ title, fields, buttonText, link, msg }) {
-  const [formData, setFormData] = useState({});
+  const { user, loading } = useSelector((state) => state.auth);
+  localStorage.setItem("user", user.role);
+  const dispatch = useDispatch();
+  const initialFormData = fields.reduce((acc, field) => {
+    acc[field.label] = "";
+    return acc;
+  }, {});
+  const [formData, setFormData] = useState(initialFormData);
   const [isVisible, setIsVisible] = useState(true);
-
   const handelChangeInputForm = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
   };
+  const handelSubmit = async (e) => {
+    e.preventDefault();
+    const endpoint = buttonText === "login" ? "login" : "register";
+    console.log(endpoint);
+    try {
+      // buttonText === "update"
 
+      //  await dispatch(updateThunk({ endpoint, formData, id })).unwrap():
+
+      const res = await dispatch(authThunk({ endpoint, formData })).unwrap();
+      setTimeout(() => {
+        const endpoint = buttonText === "login" ? "login" : "register";
+        if (endpoint === "register") {
+          window.location.href = "/login";
+        } else if (res.data?.user?.role === "admin") {
+          window.location.href = "/super-dashboard";
+        } else if (res.data?.user?.role === "resturantAdmin") {
+          window.location.href = "/dashboard";
+        } else {
+          window.location.href = "/";
+        }
+      }, 300);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Container>
+      <ToastContainer />
       <div>
         <Container className={container}>
           <AnimatePresence>
@@ -84,7 +78,7 @@ function AuthForm({ title, fields, buttonText, link, msg }) {
                   {title}
                 </motion.h3>
 
-                <motion.form variants={itemVariants}>
+                <motion.form variants={itemVariants} onSubmit={handelSubmit}>
                   <motion.p
                     style={{
                       color: "#607D8B",
@@ -103,14 +97,17 @@ function AuthForm({ title, fields, buttonText, link, msg }) {
                       variants={itemVariants}
                       custom={index}
                     >
-                      <label htmlFor={label} className="d-none d-sm-block">
+                      <label
+                        htmlFor={filed.label}
+                        className="d-none d-sm-block"
+                      >
                         {filed.label}
                       </label>
                       <input
                         type={filed.type}
-                        name={label}
-                        id={label}
-                        value={formData.userName}
+                        name={filed.label}
+                        id={filed.label}
+                        value={formData[filed.label] || ""}
                         onChange={(e) => handelChangeInputForm(e)}
                         placeholder={filed.placeholder}
                         className={input}
@@ -120,6 +117,7 @@ function AuthForm({ title, fields, buttonText, link, msg }) {
 
                   <motion.div className={btnParent} variants={itemVariants}>
                     <motion.button
+                      type="submit"
                       className={btn}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
@@ -133,14 +131,15 @@ function AuthForm({ title, fields, buttonText, link, msg }) {
                       className="my-3 text-center"
                       variants={itemVariants}
                     >
-                      By clicking {buttonText === "login" ? "login" : "Sign up"}{" "}
-                      you agree to the our terms and Conditions
+                      By clicking{" "}
+                      {buttonText === "login" ? "login" : "register"} you agree
+                      to the our terms and Conditions
                     </motion.p>
                   )}
 
                   <motion.div variants={itemVariants}>
                     {(buttonText === "login" || buttonText === "register") && (
-                      <motion.p className="my-5 text-center">
+                      <motion.p className="my-4 text-center">
                         Already an account?
                         <Link
                           to={link}

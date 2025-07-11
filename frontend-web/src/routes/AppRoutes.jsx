@@ -10,6 +10,14 @@ import Carts from "../pages/carts/Carts";
 import Add from "../components/dashboard/add/Add";
 import List from "../components/dashboard/list/List";
 import Orders from "../components/dashboard/orders/Orders";
+import SuperDashboard from "../pages/Dashboard/superDashboard/Dashboard";
+import Users from "../components/dashboard/superDashboard/users/Users";
+import Resturants from "../components/dashboard/superDashboard/resturants/Resturants";
+import CreateUser from "../components/dashboard/superDashboard/createUser/CreateUser";
+import Profile from "../pages/profile/Profile";
+import AddBalance from "../components/dashboard/superDashboard/addBalance/AddBalance";
+import FoodById from "../pages/Foods/FoodById";
+const PrivateRoute = () => {};
 const AppRouter = createBrowserRouter([
   {
     path: "/",
@@ -41,6 +49,24 @@ const AppRouter = createBrowserRouter([
   {
     path: "carts",
     element: <Carts />,
+  },
+  {
+    path: "/profile",
+    element: <Profile />,
+  },
+  {
+    path: "/food/:id",
+    element: <FoodById />,
+  },
+  {
+    path: "super-dashboard",
+    element: <SuperDashboard />,
+    children: [
+      { path: "create-user", element: <CreateUser /> },
+      { path: "users", element: <Users /> },
+      { path: "resturants", element: <Resturants /> },
+      { path: "add-balance", element: <AddBalance /> },
+    ],
   },
 ]);
 export default AppRouter;

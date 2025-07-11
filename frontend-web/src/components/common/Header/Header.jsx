@@ -1,8 +1,12 @@
-import { AlignJustify, Search, ShoppingBasket, X } from "lucide-react";
+import { AlignJustify, Cookie, Search, ShoppingBasket, X } from "lucide-react";
 import style from "./style.module.css";
 import { NavLink, Link } from "react-router-dom";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { ToastContainer } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { jwtDecode } from "jwt-decode";
+import Cookies from "universal-cookie";
+import { getUserById } from "../../../redux/users/thunkUsers/getUserById";
 const {
   header,
   logo,
@@ -14,16 +18,36 @@ const {
   open,
   active,
   shoopingItems,
+  profile,
 } = style;
+
 const Header = ({ setTranslate }) => {
+  const cookies = new Cookies();
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const toggleMenu = () => setOpen(!open);
   const items = useSelector((state) => state.cart.items);
   const totalQuantity = Object.values(items).reduce((acc, curr) => {
     return acc + curr;
   }, 0);
+
+  useEffect(() => {
+    const cookies = new Cookies();
+
+    const token = cookies.get("token");
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        dispatch(getUserById(decoded?.id));
+      } catch (error) {
+        console.error("Failed to decode token:", error);
+      }
+    }
+  }, [dispatch]);
+  const { user } = useSelector((state) => state.users);
   return (
-    <nav className={`${header}`} id="header">
+    <nav className={`${header}`} id="header" >
+      <ToastContainer />
       <Link to="/" className={logo}>
         Food
       </Link>
@@ -78,7 +102,27 @@ const Header = ({ setTranslate }) => {
               <span>{totalQuantity ? totalQuantity : 0}</span>
             </NavLink>
           </div>
-          <button className={btn}>sign up</button>
+          {cookies.get("token") ? (
+            <div>
+              <Link to="/profile" >
+                <img
+                  src={
+                    user?.image
+                      ? `http://localhost:5000/images/${user.image}`
+                      : defaultAvatar
+                  }
+                  alt="Profile"
+                style={{width:"40px",height:"40px"}}
+                />
+              </Link>
+            </div>
+          ) : (
+            <button className={btn}>
+              <Link to="/register" style={{ color: "white" }}>
+                sign up
+              </Link>
+            </button>
+          )}
           <div className={menu} onClick={toggleMenu}>
             {open ? (
               <X width={35} height={35} />

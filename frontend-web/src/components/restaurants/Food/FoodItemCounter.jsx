@@ -1,26 +1,43 @@
-import style from "./style.module.css";
-import { addToCart, removeFromCart } from "../../../redux/addToCart/cartSlice";
+import React, { memo } from "react";
 import { Minus, Plus } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { addToCart, removeFromCart } from "../../../redux/addToCart/cartSlice";
+import style from "./style.module.css";
 
 const { foodItemCount } = style;
-const FoodItemCounter = ({ id }) => {
-  const items = useSelector((state) => state.cart.items);
+
+const FoodItemCounter = memo(({ id }) => {
   const dispatch = useDispatch();
-  const itemCount = items[id] || 0;
+  const itemCount = useSelector((state) => state.cart.items[id] ?? 0);
+
+  const handleIncrement = () => {
+    if (itemCount < 5) {
+      dispatch(addToCart(id));
+    } else {
+      toast.error("You can't choose more than 5 meals");
+    }
+  };
+
+  const handleDecrement = () => {
+    dispatch(removeFromCart(id));
+  };
+
   return (
     <div className={foodItemCount}>
       {itemCount ? (
         <div>
-          <Minus onClick={() => dispatch(removeFromCart(id))} />
+          <Minus onClick={handleDecrement} />
           <span>{itemCount}</span>
-          <Plus onClick={() => dispatch(addToCart(id))} />
+          <Plus onClick={handleIncrement} />
         </div>
       ) : (
-        <Plus onClick={() => dispatch(addToCart(id))} />
+        <Plus onClick={handleIncrement} />
       )}
     </div>
   );
-};
+});
+
+FoodItemCounter.displayName = "FoodItemCounter";
 
 export default FoodItemCounter;

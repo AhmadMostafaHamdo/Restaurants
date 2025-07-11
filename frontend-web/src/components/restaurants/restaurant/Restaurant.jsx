@@ -5,22 +5,25 @@ import Rating from "../rating/Rating";
 import { MapPin, Star } from "lucide-react";
 
 const RestaurantCard = ({
+  id,
   name,
   cuisine,
   image,
   rating,
   open,
-  restaurant,
   setRestaurant,
 }) => {
-  console.log(restaurant)
+  const handelClick = () => {
+    setRestaurant(name);
+    window.location.href = `/food/${id}`;
+  };
   return (
-    <div
-      style={{ border: restaurant ===name ? "1px solid red" : "" }}
-      className={styles.restaurantCard}
-      onClick={() => setRestaurant(name)}
-    >
-      <img src={image} alt={name} className={styles.restaurantImage} />
+    <div className={styles.restaurantCard} onClick={handelClick}>
+      <img
+        src={`http://localhost:5000/images/${image}`}
+        alt={name}
+        className={styles.restaurantImage}
+      />
       <div className={styles.restaurantInfo}>
         <div
           style={{

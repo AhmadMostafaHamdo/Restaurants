@@ -28,10 +28,10 @@ body::-webkit-scrollbar {
   background-color: #ff5722;
   color: white;
   padding: 3px 12px;
+  transition: 0.3s;
   border-radius: 10px;
   font-size: 18px;
   font-weight: 600;
-  transition: 0.3s;
 }
 .scroll-to-up:hover {
   background-color: #ff3c00;
