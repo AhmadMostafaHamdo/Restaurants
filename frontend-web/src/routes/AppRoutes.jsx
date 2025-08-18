@@ -9,7 +9,6 @@ import App from "../App";
 import Carts from "../pages/carts/Carts";
 import Add from "../components/dashboard/add/Add";
 import List from "../components/dashboard/list/List";
-import Orders from "../components/dashboard/orders/Orders";
 import SuperDashboard from "../pages/Dashboard/superDashboard/Dashboard";
 import Users from "../components/dashboard/superDashboard/users/Users";
 import Resturants from "../components/dashboard/superDashboard/resturants/Resturants";
@@ -17,7 +16,10 @@ import CreateUser from "../components/dashboard/superDashboard/createUser/Create
 import Profile from "../pages/profile/Profile";
 import AddBalance from "../components/dashboard/superDashboard/addBalance/AddBalance";
 import FoodById from "../pages/Foods/FoodById";
-const PrivateRoute = () => {};
+import Delevery from "../pages/delevery/Delevery";
+import ChatInterface from "../components/chat/ChatInterface";
+import Messages from "../components/dashboard/messages/Messages";
+import CreateResturant from "../components/dashboard/superDashboard/createResturent/CreateResturant";
 const AppRouter = createBrowserRouter([
   {
     path: "/",
@@ -29,6 +31,8 @@ const AppRouter = createBrowserRouter([
     ],
   },
   { path: "login", element: <Login />, errorElement: <Error /> },
+  { path: "/chat", element: <ChatInterface />, errorElement: <Error /> },
+  { path: "/delevery", element: <Delevery />, errorElement: <Error /> },
   {
     path: "register",
     element: <Register />,
@@ -43,7 +47,7 @@ const AppRouter = createBrowserRouter([
     children: [
       { path: "add", element: <Add /> },
       { path: "list", element: <List /> },
-      { path: "orders", element: <Orders /> },
+      { path: "messages", element: <Messages /> },
     ],
   },
   {
@@ -55,7 +59,7 @@ const AppRouter = createBrowserRouter([
     element: <Profile />,
   },
   {
-    path: "/food/:id",
+    path: "/food/:restaurantId",
     element: <FoodById />,
   },
   {
@@ -63,6 +67,7 @@ const AppRouter = createBrowserRouter([
     element: <SuperDashboard />,
     children: [
       { path: "create-user", element: <CreateUser /> },
+      { path: "create-resturent", element: <CreateResturant /> },
       { path: "users", element: <Users /> },
       { path: "resturants", element: <Resturants /> },
       { path: "add-balance", element: <AddBalance /> },

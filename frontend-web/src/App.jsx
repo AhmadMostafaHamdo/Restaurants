@@ -7,6 +7,9 @@ import "./index.css";
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Main from "./components/socket/Main";
+import ContactUs from "./pages/contactUs/ContactUs";
+import MapComponent from "./components/RestaurantMap";
 function App() {
   const [translate, setTranslate] = useState("");
   const [showUp, setShowUp] = useState(false);
@@ -51,6 +54,8 @@ function App() {
           up
         </a>
       )}
+      <MapComponent />
+      <ContactUs />
     </>
   );
 }

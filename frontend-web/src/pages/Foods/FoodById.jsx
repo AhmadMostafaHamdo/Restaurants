@@ -1,36 +1,37 @@
 import React, { useEffect } from "react";
 import style from "./style.module.css";
-import { useParams } from "react-router-dom"; // Added missing import
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkGetFoodById } from "../../redux/food/thunk/thunkGetFoodById";
 import FoodItem from "../../components/restaurants/Food/FoodItem";
-const { foods } = style;
 
 const FoodById = () => {
-  const { food = [], loading } = useSelector((state) => state.food); // Added loading state
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const { food = [], loading, error } = useSelector((state) => state.food);
+  const { restaurantId } = useParams();
 
   useEffect(() => {
-    dispatch(thunkGetFoodById(id));
-  }, [dispatch, id]); // Fixed dependencies: removed 'food', added 'id'
+    if (restaurantId) {
+      dispatch(thunkGetFoodById(restaurantId));
+    }
+  }, [dispatch, restaurantId]);
 
-  // Basic loading state handling
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div>جاري التحميل...</div>;
 
-  // Handle case where food isn't loaded yet
-  if (!food) return <div>Food not found!</div>;
-  console.log(food);
+  if (error) return <div style={{ color: "red" }}>حدث خطأ: {error}</div>;
+
+  if (!food.length) return <div>لا توجد أطعمة متاحة لهذا المطعم.</div>;
+
   return (
-    <div className={foods}>
-      {food.map((food) => (
+    <div className={style.foods} style={{ paddingTop: "2rem" }}>
+      {food.map((item) => (
         <FoodItem
-          id={food._id}
-          name={food.name}
-          description={food.description}
-          image={food.image}
-          price={food.price}
-          key={food._id}
+          key={item._id}
+          id={item._id}
+          name={item.name}
+          description={item.description}
+          image={item.image}
+          price={item.price}
         />
       ))}
     </div>

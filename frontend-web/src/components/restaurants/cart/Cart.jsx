@@ -11,7 +11,12 @@ const Cart = ({ id, img, name, price, alt }) => {
   return (
     <div className={styles.cartItem}>
       <div className={styles.itemImageContainer}>
-        <img src={img} alt={alt} className={styles.itemImage} loading="lazy" />
+        <img
+          src={`http://localhost:5000/images/${img}`}
+          alt={alt}
+          className={styles.itemImage}
+          loading="lazy"
+        />
         <div className={styles.itemInfo}>
           <h3 className={styles.itemName}>{name}</h3>
           <p className={styles.itemPrice}>${price.toFixed(2)}</p>

@@ -21,7 +21,7 @@ const Sidebar = () => {
           Users
         </NavLink>
         <NavLink
-          to="users"
+          to="create-resturent"
           className={`${sidebarOption} ${(isActive) =>
             isActive ? active : ""}`}
         >

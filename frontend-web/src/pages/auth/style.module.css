@@ -5,6 +5,7 @@
 }
 .register {
   width: 700px;
+  height: fit-content;
   box-shadow: 0 0 4px 1px #ff98004f;
   border: 1px solid #ff9800;
   padding: 20px 10px 10px;

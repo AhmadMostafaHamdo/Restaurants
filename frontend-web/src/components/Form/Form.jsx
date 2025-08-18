@@ -65,6 +65,7 @@ function AuthForm({ title, fields, buttonText, link, msg }) {
           <AnimatePresence>
             {isVisible && (
               <motion.div
+                style={{ height: title === "register" ? "90vh !import" : "" }}
                 className={register}
                 variants={containerVariants}
                 initial="hidden"

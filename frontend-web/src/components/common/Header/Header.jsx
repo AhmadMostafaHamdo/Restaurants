@@ -1,4 +1,5 @@
-import { AlignJustify, Cookie, Search, ShoppingBasket, X } from "lucide-react";
+import { AlignJustify, Search, ShoppingBasket, X } from "lucide-react";
+import pesonal from "../../../assets/pesonal.png";
 import style from "./style.module.css";
 import { NavLink, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -46,7 +47,7 @@ const Header = ({ setTranslate }) => {
   }, [dispatch]);
   const { user } = useSelector((state) => state.users);
   return (
-    <nav className={`${header}`} id="header" >
+    <nav className={`${header}`} id="header">
       <ToastContainer />
       <Link to="/" className={logo}>
         Food
@@ -104,15 +105,15 @@ const Header = ({ setTranslate }) => {
           </div>
           {cookies.get("token") ? (
             <div>
-              <Link to="/profile" >
+              <Link to="/profile">
                 <img
                   src={
                     user?.image
                       ? `http://localhost:5000/images/${user.image}`
-                      : defaultAvatar
+                      : pesonal
                   }
                   alt="Profile"
-                style={{width:"40px",height:"40px"}}
+                  style={{ width: "40px", height: "40px" }}
                 />
               </Link>
             </div>

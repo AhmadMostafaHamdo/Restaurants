@@ -23,12 +23,12 @@ const SideBar = () => {
           <p>List Items</p>
         </NavLink>
         <NavLink
-          to="orders"
+          to="messages"
           className={`${sidebarOption} ${({ isActive }) =>
             isActive ? active : ""}`}
         >
           <BookA />
-          <p>Orders</p>
+          <p>Messages</p>
         </NavLink>
       </div>
     </div>

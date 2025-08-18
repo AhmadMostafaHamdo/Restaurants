@@ -1,4 +1,4 @@
-.foods {
+.food,.foods  {
   display: flex;
   align-items: center;
   justify-content: center;
