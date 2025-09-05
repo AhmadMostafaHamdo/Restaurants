@@ -12,24 +12,34 @@ const getUserById = asyncHandler(async (req, res) => {
     return res.status(404).json({ status: "fail", msg: "User not found" });
   res.status(200).json({ status: "success", data: user });
 });
-
 const updateUser = asyncHandler(async (req, res) => {
-  const { error } = validateUserUpdate(req.body);
+  const { name, phone, email } = req.body;
+  let updatedFields = { name, phone, email };
+
+  if (req.file) updatedFields.image = req.file.filename;
+
+  const { error } = validateUserUpdate(updatedFields);
   if (error)
     return res
       .status(400)
       .json({ status: "fail", msg: error.details[0].message });
 
-  const updated = await User.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  });
-  if (!updated)
+  const updatedUser = await User.findByIdAndUpdate(
+    req.params.id,
+    updatedFields,
+    { new: true }
+  );
+
+  if (!updatedUser)
     return res.status(404).json({ status: "fail", msg: "User not found" });
 
-  res
-    .status(200)
-    .json({ status: "success", data: updated, msg: "added balance " });
+  res.status(200).json({
+    status: "success",
+    data: updatedUser,
+    msg: "Profile updated successfully ✅",
+  });
 });
+
 const increaseBalance = asyncHandler(async (req, res) => {
   const { balance, email } = req.body;
 
@@ -63,21 +73,34 @@ const increaseBalance = asyncHandler(async (req, res) => {
 });
 const decriseBalance = asyncHandler(async (req, res) => {
   const { balance, email } = req.body;
-  const user = await User.findOne(email);
+
+  // 1. Find user by email (corrected query)
+  const user = await User.findOne({ email });
   if (!user) {
-    return res.status(404).json({ msg: "user not found" });
+    return res.status(404).json({ msg: "User not found" });
   }
-  await User.updateOne(
+  if (typeof balance !== "number" || balance <= 0) {
+    return res.status(400).json({
+      msg: "Invalid balance amount",
+    });
+  }
+
+  // 2. Calculate new balance
+  const newBalance = +user.balance - balance;
+
+  // 3. Update user (corrected update logic)
+  const updatedUser = await User.findOneAndUpdate(
     { email },
-    {
-      $set: {
-        balance: balance - balance,
-      },
-    }
+    { $set: { balance: newBalance } },
+    { new: true } // Return updated document
   );
-  res
-    .status(200)
-    .json({ status: "success", data: updated, msg: "decrise balance" });
+
+  // 4. Proper response with updated data
+  res.status(200).json({
+    status: "success",
+    data: updatedUser,
+    msg: "Balance decrised successfully",
+  });
 });
 const deleteUser = asyncHandler(async (req, res) => {
   const deleted = await User.findByIdAndDelete(req.params.id);

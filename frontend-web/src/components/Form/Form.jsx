@@ -49,6 +49,8 @@ function AuthForm({ title, fields, buttonText, link, msg }) {
           window.location.href = "/super-dashboard";
         } else if (res.data?.user?.role === "resturantAdmin") {
           window.location.href = "/dashboard";
+        } else if (res.data?.user?.role === "delivery") {
+          window.location.href = "/delivery";
         } else {
           window.location.href = "/";
         }

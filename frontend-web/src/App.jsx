@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Main from "./components/socket/Main";
 import ContactUs from "./pages/contactUs/ContactUs";
 import MapComponent from "./components/RestaurantMap";
+import Restaurants from "./components/restaurants/restarants/Restarants";
 function App() {
   const [translate, setTranslate] = useState("");
   const [showUp, setShowUp] = useState(false);
@@ -40,6 +41,7 @@ function App() {
       <Header setTranslate={setTranslate} />
       <Outlet />
       <Divider />
+      <Restaurants/>
       <Menu
         setCategory={setCategory}
         category={category}

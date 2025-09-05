@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { resturantThunk } from "../../../redux/resturant/resturantThunk/resturanrThunk";
 import io from "socket.io-client";
+import { Container } from "react-bootstrap";
 
 const socket = io("http://localhost:5000");
 
@@ -54,30 +55,34 @@ const Restaurants = ({ setRestaurant }) => {
   if (!restaurants) return <p>Loading restaurants...</p>;
 
   return (
-    <div>
-      <h1>Restaurant List</h1>
-      <div style={{ display: "flex", flexWrap: "wrap", paddingBottom: "19vh" }}>
-        {Array.isArray(restaurants) && restaurants.length > 0 ? (
-          restaurants
-            .filter((restaurant) => restaurant && restaurant.name)
-            .map((restaurant) => (
-              <RestaurantCard
-                key={restaurant._id}
-                name={restaurant.name}
-                cuisine={restaurant.cuisine}
-                rating={restaurant.rating}
-                image={restaurant.image}
-                open={restaurant.open}
-                setRestaurant={setRestaurant}
-                id={restaurant._id}
-                socket={socket} // Pass socket to child component
-              />
-            ))
-        ) : (
-          <p>No restaurants found.</p>
-        )}
+    <Container>
+      <div id="resturents" style={{ paddingTop: "100px",height:"90vh" }}>
+        <h1>Restaurant List</h1>
+        <div
+          style={{ display: "flex", flexWrap: "wrap", paddingBottom: "19vh" }}
+        >
+          {Array.isArray(restaurants) && restaurants.length > 0 ? (
+            restaurants
+              .filter((restaurant) => restaurant && restaurant.name)
+              .map((restaurant) => (
+                <RestaurantCard
+                  key={restaurant._id}
+                  name={restaurant.name}
+                  cuisine={restaurant.cuisine}
+                  rating={restaurant.rating}
+                  image={restaurant.image}
+                  open={restaurant.open}
+                  setRestaurant={setRestaurant}
+                  id={restaurant._id}
+                  socket={socket} // Pass socket to child component
+                />
+              ))
+          ) : (
+            <p>No restaurants found.</p>
+          )}
+        </div>
       </div>
-    </div>
+    </Container>
   );
 };
 

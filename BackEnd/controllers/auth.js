@@ -7,7 +7,7 @@ const generateTokens = (userId, role) => {
   const accessToken = jwt.sign(
     { id: userId, role },
     process.env.ACCESS_TOKEN_SECRET,
-    { expiresIn: "15m" }
+    { expiresIn: "59m" }
   );
   const refreshToken = jwt.sign(
     { id: userId },
@@ -66,7 +66,6 @@ const register = asyncHandler(async (req, res) => {
     data: { msg: "User registered", user: newUser, token: accessToken },
   });
 });
-
 
 // Login
 const login = asyncHandler(async (req, res) => {

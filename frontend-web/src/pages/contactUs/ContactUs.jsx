@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./style.css";
+import { useSelector } from "react-redux";
 
 const ContactUs = () => {
+  const { user } = useSelector((state) => state.users);
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
+    name: user?.name,
+    email: user?.email,
     message: "",
   });
+  console.log(formData)
   const [submitting, setSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
 
@@ -32,7 +35,7 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="contact-container">
+    <div className="contact-container" id="contact-us">
       <h1>Contact Us</h1>
       <p>Have questions? We'd love to hear from you!</p>
 
@@ -42,6 +45,7 @@ const ContactUs = () => {
           <input
             type="text"
             id="name"
+            disabled
             name="name"
             value={formData.name}
             onChange={handleChange}
@@ -54,6 +58,7 @@ const ContactUs = () => {
           <input
             type="email"
             id="email"
+            disabled
             name="email"
             value={formData.email}
             onChange={handleChange}

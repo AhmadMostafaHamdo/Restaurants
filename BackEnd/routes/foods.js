@@ -4,7 +4,7 @@ const {
   addFood,
   listFood,
   removeFood,
-  getFoodById,
+  getFoodsByRestaurant,
 } = require("../controllers/foods");
 const router = express.Router();
 
@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.post("/add", upload.single("image"), addFood);
-router.get("/list/:id", getFoodById);
+router.get("/list/:id", getFoodsByRestaurant);
 router.get("/list", listFood);
 router.delete("/remove", removeFood);
 

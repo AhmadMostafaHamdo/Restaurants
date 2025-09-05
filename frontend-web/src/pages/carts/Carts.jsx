@@ -6,35 +6,68 @@ import CountUp from "react-countup";
 import { Container } from "react-bootstrap";
 import { desriseBalance } from "../../redux/balance/thunk/desriseBalance";
 import { clearCart } from "../../redux/addToCart/cartSlice";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Carts = () => {
-  const items = useSelector((state) => state.cart.items);
+  const items = useSelector((state) => state.cart.items); // { productId: quantity }
   const { foods } = useSelector((state) => state.food);
-  console.log(foods);
+  const { user } = useSelector((state) => state.users);
+
   const [openPayment, setOpenPayment] = useState(false);
-  const [email, setEmail] = useState("");
   const dispatch = useDispatch();
+
   const { totalAmount, cartItems } = useMemo(() => {
     let amount = 0;
     const filteredItems = foods.filter((food) => items[food._id]);
 
     filteredItems.forEach((food) => {
-      amount += food.price * items[food.id];
+      amount += food.price * items[food._id];
     });
 
     return { totalAmount: amount, cartItems: filteredItems };
-  }, [items]);
+  }, [items, foods]);
+
   const handelTryPayment = () => {
     setOpenPayment(true);
   };
-  const handelPayment = () => {
-    dispatch(desriseBalance({ email, balance: totalAmount }));
+
+  const handelPayment = async () => {
+    try {
+      // 1. خصم الرصيد
+      await dispatch(
+        desriseBalance({ email: user.email, balance: totalAmount })
+      );
+
+      // 2. حفظ المبيعات في قاعدة البيانات
+      const res = await axios.post("/sales", {
+        userId: user._id,
+        items: cartItems.map((food) => ({
+          productId: food._id,
+          name: food.name,
+          price: food.price,
+          quantity: items[food._id], // الكمية من الستيت
+        })),
+        totalAmount,
+      });
+      console.log(res);
+
+      // 3. تفريغ السلة
+      dispatch(clearCart());
+      setOpenPayment(false);
+
+      toast.success("تمت عملية الشراء وتسجيل المبيعات ✅");
+    } catch (err) {
+      console.log(err);
+    }
   };
+
   const handelCanclPayment = () => {
     setOpenPayment(false);
   };
+
   return (
-    <Container style={{paddingBottom:"9rem",paddingTop:"4rem"}}>
+    <Container style={{ paddingBottom: "9rem", paddingTop: "4rem" }}>
       {openPayment && (
         <div className={style.popupOverlay}>
           <div className={style.popupContainer}>
@@ -56,15 +89,17 @@ const Carts = () => {
           </div>
         </div>
       )}
+
       <button
         onClick={() => dispatch(clearCart())}
         style={{ padding: "10px", border: "none", borderRadius: "10px" }}
       >
         clear carts
       </button>
+
       <div className={style.carts}>
         {cartItems.map((food) => (
-          <React.Fragment key={food.id}>
+          <React.Fragment key={food._id}>
             <Cart
               id={food._id}
               alt={food.alt}
@@ -75,6 +110,7 @@ const Carts = () => {
             <hr />
           </React.Fragment>
         ))}
+
         <div
           style={{
             display: "flex",
@@ -91,16 +127,14 @@ const Carts = () => {
               </span>
             </p>
             <hr />
-            {
-              <p>
-                Delivery: <span>{items.length > 0 ? 2 : 0}$</span>
-              </p>
-            }
+            <p>
+              Delivery: <span>{Object.keys(items).length > 0 ? 2 : 0}$</span>
+            </p>
             <hr />
             <p>
               Total Price:
               <span>
-                {items.length > 0 ? (
+                {Object.keys(items).length > 0 ? (
                   <CountUp start={totalAmount} end={totalAmount + 2} />
                 ) : (
                   0
@@ -109,6 +143,7 @@ const Carts = () => {
               </span>
             </p>
           </div>
+
           <div
             style={{
               display: "flex",
@@ -120,8 +155,8 @@ const Carts = () => {
             <input
               type="text"
               placeholder="email..."
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={user?.email || ""}
+              disabled
               style={{
                 borderRadius: ".4rem",
                 padding: ".7rem",

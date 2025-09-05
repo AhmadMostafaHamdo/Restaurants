@@ -82,7 +82,7 @@ const RestaurantCard = ({
         </div>
         <p className={styles.restaurantCuisine}>{cuisine}</p>
         <div className={styles.ratingPlusMap}>
-          <Rating />
+          <Rating id={id} />
           <div>
             ({rating}
             <Star fill="#ff5722" color="#ff5722" width={15} />)

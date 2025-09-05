@@ -80,7 +80,8 @@ const RestaurantMap = () => {
           color: "#ff5722",
         }}
       >
-map for our resturants      </h2>
+        map for our resturants{" "}
+      </h2>
 
       <MapContainer
         center={locations[0]} // نركز على أول موقع مؤقتًا
@@ -91,6 +92,7 @@ map for our resturants      </h2>
           margin: "0 auto",
           borderRadius: "10px",
           boxShadow: "0 0 15px rgba(0,0,0,0.2)",
+          zIndex: "-1",
         }}
         scrollWheelZoom={true}
       >

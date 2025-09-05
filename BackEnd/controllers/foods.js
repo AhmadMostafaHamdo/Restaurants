@@ -1,6 +1,8 @@
 const { Food } = require("../model/Food");
 const asyncHandler = require("express-async-handler");
 const fs = require("fs");
+const { default: mongoose } = require("mongoose");
+const { Restaurant } = require("../model/Restaurant");
 const addFood = asyncHandler(async (req, res) => {
   const { name, description, price, category, restaurantId } = req.body;
   const food = new Food({
@@ -21,13 +23,37 @@ const listFood = asyncHandler(async (req, res) => {
   }
   return res.status(200).json({ status: "success", food });
 });
-const getFoodById = asyncHandler(async (req, res) => {
-  const { restaurantId } = req.params;
-  const food = await Food.find({ restaurantId }, { __v: 0 });
-  if (!food) {
-    return res.status(200).json({ status: "success", data: [] });
+// Get foods by restaurant
+const getFoodsByRestaurant = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  // Validate restaurant ID format
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({
+      status: "error",
+      message: "Invalid restaurant ID format"
+    });
   }
-  return res.status(200).json({ status: "success", food });
+
+  // Check if restaurant exists
+  const restaurantExists = await Restaurant.exists({ _id: id });
+  if (!restaurantExists) {
+    return res.status(404).json({
+      status: "fail",
+      message: "Restaurant not found"
+    });
+  }
+
+  // Get ONLY the foods for this restaurant
+  const foods = await Food.find({ restaurantId: id })
+    .select("-__v") // Exclude version field
+    .lean();
+
+  return res.status(200).json({ 
+    status: "success", 
+    results: foods.length,
+    data: foods 
+  });
 });
 const removeFood = asyncHandler(async (req, res) => {
   const food = await Food.findByIdAndDelete(req.body.id);
@@ -42,6 +68,6 @@ const removeFood = asyncHandler(async (req, res) => {
 module.exports = {
   addFood,
   listFood,
-  getFoodById,
+  getFoodsByRestaurant,
   removeFood,
 };

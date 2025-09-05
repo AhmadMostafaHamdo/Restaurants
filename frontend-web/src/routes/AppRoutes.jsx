@@ -20,6 +20,8 @@ import Delevery from "../pages/delevery/Delevery";
 import ChatInterface from "../components/chat/ChatInterface";
 import Messages from "../components/dashboard/messages/Messages";
 import CreateResturant from "../components/dashboard/superDashboard/createResturent/CreateResturant";
+import CheckDelivery from "./CheckDelivery";
+import SalesHistory from "../pages/SalesHistory/SalesHistory";
 const AppRouter = createBrowserRouter([
   {
     path: "/",
@@ -30,9 +32,24 @@ const AppRouter = createBrowserRouter([
       { path: "/carts", element: <Carts /> },
     ],
   },
+
   { path: "login", element: <Login />, errorElement: <Error /> },
+
   { path: "/chat", element: <ChatInterface />, errorElement: <Error /> },
-  { path: "/delevery", element: <Delevery />, errorElement: <Error /> },
+  {
+    path: "/sales-history",
+    element: <SalesHistory />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/delivery",
+    element: (
+      <CheckDelivery>
+        <Delevery />
+      </CheckDelivery>
+    ),
+    errorElement: <Error />,
+  },
   {
     path: "register",
     element: <Register />,

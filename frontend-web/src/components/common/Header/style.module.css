@@ -8,6 +8,9 @@
   border-bottom: 1px solid rgba(8, 8, 8, 0.548);
   box-shadow: 0 4px 1px 1px rgba(0, 0, 0, 0.192);
   overflow: hidden;
+  position: fixed;
+  width: 100%;
+  z-index: 10;
 }
 nav.c {
   background-color: red;
@@ -106,4 +109,10 @@ ul li a {
     color: white;
     font-size: 21px;
   }
+}
+.active {
+  color: #ff5722; /* لون مميز */
+  font-weight: bold;
+  border-bottom: 2px solid #ff5722; /* خط تحته */
+  transition: all 0.3s ease-in-out;
 }

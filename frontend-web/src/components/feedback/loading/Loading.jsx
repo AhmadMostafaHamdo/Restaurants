@@ -1,3 +1,4 @@
+
 import style from "./style.module.css";
 const { loadingParent, loadingChild } = style;
 const Loading = ({ state, children }) => {
