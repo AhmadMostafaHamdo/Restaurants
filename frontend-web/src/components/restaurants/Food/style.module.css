@@ -1,0 +1,139 @@
+/* style.module.css */
+.foodItem {
+  width: 220px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+  margin: 10px;
+}
+
+.foodItem:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.foodItemImgContainer {
+  position: relative;
+}
+
+.foodItemImg {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+  transition: transform 0.3s;
+}
+
+.foodItemImgContainer:hover .foodItemImg {
+  transform: scale(1.05);
+}
+
+.foodItemCount {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: rgba(255,255,255,0.9);
+  border-radius: 12px;
+  padding: 2px 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.foodItemCount svg {
+  cursor: pointer;
+  width: 22px;
+  height: 22px;
+  padding: 2px;
+  border-radius: 50%;
+  background-color: #ff5722;
+  color: #fff;
+}
+
+.foodItemCount div {
+  display: flex;
+  gap: 5px;
+}
+
+.foodItemInfo {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.foodItemNameRating {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.foodItemName {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #333;
+}
+
+.foodItemDescription {
+  font-size: 0.85rem;
+  color: #676767;
+  min-height: 38px;
+}
+
+.foodItemPrice {
+  color: #ff5722;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .foodItem {
+    width: 160px;
+  }
+
+  .foodItemImg {
+    height: 120px;
+  }
+
+  .foodItemPrice {
+    font-size: 16px;
+  }
+
+  .foodItemName {
+    font-size: 0.9rem;
+  }
+
+  .foodItemDescription {
+    font-size: 0.75rem;
+  }
+
+  .foodItemCount svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .foodItem {
+    width: 140px;
+  }
+
+  .foodItemImg {
+    height: 100px;
+  }
+
+  .foodItemPrice {
+    font-size: 14px;
+  }
+
+  .foodItemName {
+    font-size: 0.85rem;
+  }
+
+  .foodItemDescription {
+    font-size: 0.7rem;
+  }
+}

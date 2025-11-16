@@ -1,0 +1,16 @@
+.topbar {
+  height: 60px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+.logo {
+    color: tomato;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 30px;
+    -webkit-text-stroke-width: 2px;
+    font-style: italic;
+}

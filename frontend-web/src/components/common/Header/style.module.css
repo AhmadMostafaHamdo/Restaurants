@@ -1,0 +1,122 @@
+.header {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+}
+
+.logo {
+  color: tomato;
+  font-weight: bold;
+  font-size: 30px;
+  text-decoration: none;
+  font-style: italic;
+  -webkit-text-stroke: 1px black;
+  margin-left: -15%;
+}
+
+.ul {
+  display: flex;
+  gap: 25px;
+  list-style: none !important;
+  margin-top: 10px;
+}
+
+.ul li a {
+  text-decoration: none;
+  font-size: 19px;
+  color: rgb(204, 136, 73);
+  position: relative;
+  font-weight: bold;
+}
+
+.ul li a:hover,
+.active {
+  color: #ff5722;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.headerRight .search,
+.headerRight .shoopingItems,
+.headerRight .menu {
+  cursor: pointer;
+}
+.headerRight .menu {
+  display: none;
+}
+.shoopingItems {
+  position: relative;
+}
+
+.shoopingItems span {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #ff5722;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 20px;
+}
+
+.btn {
+  background-color: #ff5722;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-weight: 600;
+  color: white;
+}
+
+.btn:hover {
+  background-color: #e64a19;
+}
+
+/* Mobile */
+@media (max-width: 991px) {
+  .ul {
+    display: none;
+  }
+
+  .headerRight .menu {
+    display: inline-block;
+  }
+
+  .mobileMenu {
+    display: flex !important;
+    position: fixed;
+    top: 70px;
+    left:20%;
+    transform: translateX(-50%);
+    flex-direction: column;
+    background: #ff5722;
+    width: 80%;
+    height: 50vh;
+    padding: 20px;
+    border-radius: 10px;
+    gap: 20px;
+    z-index: 998;
+    list-style: none;
+    box-shadow: 0  0 4px 1px #e64a19;
+  }
+
+  .mobileMenu li a {
+    color: white;
+    font-size: 20px;
+  }
+}

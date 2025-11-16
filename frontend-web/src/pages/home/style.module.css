@@ -1,0 +1,54 @@
+.home {
+  height: 68vh;
+  background-image: url("../../assets/burger.jpeg");
+  object-fit: contain;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  position: relative;
+  border-radius: 12px;
+}
+.home::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.homeContent {
+  position: absolute;
+  color: white;
+  transform: translateY(-50%);
+  top: 50%;
+  left: 4vw;
+}
+.homeContent h1 {
+  font-size: 55px;
+  font-weight: 900;
+}
+.homeContent p {
+  width: 60vw;
+  font-weight: 500;
+}
+.home button{
+  background: #ff5722;
+  color: white;
+  border: none;
+  padding: 10px 28px;
+  border-radius: 9px;
+  font-weight: 500;
+  font-size: 18px;
+}
+.home button a {
+  color: white !important;
+}
+@media (max-width:576px) {
+
+.homeContent p {
+  width: 80vw;
+}
+.homeContent h1 {
+  font-size: 40px;
+}
+  
+}

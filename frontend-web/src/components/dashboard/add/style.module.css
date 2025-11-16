@@ -1,0 +1,271 @@
+.container {
+  height: 90vh;
+  width: 87.54%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f3f4f6;
+  padding: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  background: #fff;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  max-width: 800px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.imageContainer {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.imageContainer:hover {
+  border-color: tomato;
+  background: #f1f5f9;
+}
+
+.uploadBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: #6b7280;
+  text-align: center;
+}
+
+.icon {
+  width: 50px;
+  height: 50px;
+}
+
+.preview {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+}
+
+.fields {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.field label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #374151;
+}
+
+.field input,
+.field textarea,
+.field select {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  font-size: 0.95rem;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+  border-color: tomato;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.field textarea {
+  resize: none;
+  height: 70px;
+}
+
+.flexRow {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.flexRow .field {
+  flex: 1;
+  min-width: 120px;
+}
+
+.submitBtn {
+  padding: 12px;
+  background: tomato;
+  color: white;
+  font-weight: 600;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.submitBtn:hover {
+  background: rgba(255, 99, 71, 0.637);
+}
+
+@media (max-width: 768px) {
+  .form {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .flexRow {
+    flex-direction: column;
+  }
+}
+/* الحاوية العامة للفورم */
+form {
+  max-width: 650px;
+  margin: 30px auto;
+  background: #ffffff;
+  padding: 30px 25px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* الحقول */
+.filed {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+/* الليبل */
+.filed label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+/* الإدخال */
+.filed input,
+.filed textarea,
+.filed select {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  font-size: 0.95rem;
+  color: #374151;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* التركيز على الحقل */
+.filed input:focus,
+.filed textarea:focus,
+.filed select:focus {
+  border-color: tomato;
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+}
+
+/* زر الإرسال */
+.filed button {
+  width: 100%;
+  padding: 14px;
+  background: tomato;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 10px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.1s ease;
+}
+
+.filed button:hover {
+  background: rgba(255, 99, 71, 0.514);
+}
+
+.filed button:active {
+  transform: scale(0.97);
+}
+
+/* رفع الصور */
+.uploadImage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border: 2px dashed #9ca3af;
+  padding: 25px;
+  margin-top: 10px;
+  border-radius: 12px;
+  background: #f9fafb;
+  cursor: pointer;
+  transition: border 0.25s ease, background 0.25s ease;
+}
+
+.uploadImage:hover {
+  border-color: tomato;
+  background: #f3f4f6;
+}
+
+.uploadImage p {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+/* الصورة بعد الرفع */
+.filed img {
+  border-radius: 12px;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  margin-top: 12px;
+  border: 1px solid #d1d5db;
+}
+
+/* الحقول المزدوجة */
+.filed.flex-row {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.filed.flex-row > div {
+  flex: 1;
+  min-width: 150px;
+}
+
+/* موبايل */
+@media (max-width: 767px) {
+  form {
+    width: 95%;
+    padding: 20px;
+  }
+
+  .filed button {
+    font-size: 0.95rem;
+    padding: 12px;
+  }
+}

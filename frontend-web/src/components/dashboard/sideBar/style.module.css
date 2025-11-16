@@ -1,0 +1,68 @@
+.sidebar {
+  display: flex;
+  flex-wrap: wrap; /* يسمح بالتفاف العناصر عند الحاجة */
+  gap: 12px;
+  background: #fafafa;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* الوضع العمودي */
+.vertical {
+  flex-direction: column;
+  height: calc(100vh - 70px);
+  border-right: 1px solid #e5e7eb;
+}
+
+/* الوضع الأفقي */
+.horizontal {
+  flex-direction: row;
+  border-bottom: 1px solid #e5e7eb;
+  width: 100%;
+}
+
+/* عناصر الـ sidebar */
+.sidebarOption {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 15px;
+  color: #4b5563;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+/* أيقونات */
+.sidebarOption .icon {
+  color: #6b7280;
+  transition: color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.sidebarOption .text {
+  flex: 1;
+}
+
+.sidebarOption:hover {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.sidebarOption:hover .icon {
+  color: #111827;
+}
+
+.active {
+  background-color: #2563eb;
+  color: #fff !important;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.active .icon {
+  color: #fff;
+}

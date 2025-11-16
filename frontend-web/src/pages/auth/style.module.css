@@ -1,0 +1,81 @@
+.container {
+  height: 100vh;
+  width: 100vw;
+  flex-direction: column;
+}
+.register {
+  width: 700px;
+  height: fit-content;
+  box-shadow: 0 0 4px 1px #ff98004f;
+  border: 1px solid #ff9800;
+  padding: 20px 10px 10px;
+  border-radius: 11px;
+  overflow: hidden;
+}
+form {
+  margin: auto;
+  width: 80%;
+}
+.titleAuth {
+  color: #ff9800;
+  font-size: 30px;
+  margin-bottom: 12px;
+}
+.groupForm {
+  margin-bottom: 12px;
+  flex-direction: column;
+}
+.container,
+.groupForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.input {
+  padding: 8px;
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #ec9c23e1;
+}
+.input:focus {
+  box-shadow: 0 0 1px 1px #ff5722;
+}
+.btnParent {
+  width: 100%;
+}
+.btn {
+  display: block;
+  background: #ff9800;
+  width: 250px;
+  border: none;
+  margin: 20px auto 0;
+  padding: 8px;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+}
+@media (max-width: 991px) {
+  .register {
+    width: 100%;
+    padding: 10px 0 0;
+  }
+  .input {
+    width: 90%;
+  }
+}
+@media (max-width: 767px) {
+  .register {
+    width: 84vw;
+    padding: 10px 0 0;
+  }
+  .input {
+    width: 100%;
+  }
+  .btn {
+    width: 200px;
+    padding: 6px;
+  }
+  p {
+    font-size: 13px;
+  }
+}

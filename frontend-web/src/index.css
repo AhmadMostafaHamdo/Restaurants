@@ -1,0 +1,42 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Cairo", sans-serif;
+}
+a {
+  text-decoration: none !important;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: #ff5722;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+body::-webkit-scrollbar-thumb:hover {
+  background-color: #ff5622cc;
+}
+body::-webkit-scrollbar {
+  background: #888;
+  width: 10px;
+  height: 12px;
+}
+.scroll-to-up {
+  text-decoration: none;
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  background-color: #ff5722;
+  color: white;
+  padding: 3px 12px;
+  transition: 0.3s;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 600;
+}
+.scroll-to-up:hover {
+  background-color: #ff3c00;
+}
+button,
+input {
+  outline: none !important;
+}

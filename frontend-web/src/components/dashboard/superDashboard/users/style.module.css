@@ -1,0 +1,20 @@
+.usersTable {
+  width: 700px;
+  margin: 15px;
+  border-collapse: collapse;
+}
+
+.usersTable td, 
+.usersTable th {
+  padding: 10px;
+  text-align: left;
+}
+
+.usersTable thead th {
+  background-color: rgb(111, 111, 156);
+  color: white;
+}
+
+.usersTable tbody tr {
+  border-bottom: 1px solid #ddd;
+}

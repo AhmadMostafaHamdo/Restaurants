@@ -1,0 +1,33 @@
+/* Grid for restaurant cards */
+.restaurants-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  justify-items: center;
+}
+
+.restaurant-card-wrapper {
+  width: 100%;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .restaurants-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
+  .restaurant-card-wrapper {
+    width: 90%;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1200px) {
+  .restaurants-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+  .restaurant-card-wrapper {
+    width: 100%;
+  }
+}
