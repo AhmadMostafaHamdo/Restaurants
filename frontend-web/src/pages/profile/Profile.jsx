@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import defaultAvatar from "../../assets/profile.jpeg";
 import style from "./style.module.css";
 import Cookies from "universal-cookie";
-import { jwtDecode } from "jwt-decode";
+import jwtDecode from "jwt-decode";
 import { getUserById } from "../../redux/users/thunkUsers/getUserById";
 import updatedIcon from "../../assets/updatedIcon.svg";
 import axios from "axios";
@@ -14,17 +14,12 @@ const Profile = () => {
   const cookies = new Cookies();
 
   const [image, setImage] = useState(null);
-
-  // ✅ editMode لكل حقل
   const [editMode, setEditMode] = useState({
     name: false,
     phone: false,
     email: false,
   });
-
-  // ✅ state للفورم
   const [form, setForm] = useState({ name: "", phone: "", email: "" });
-
   const file = useRef();
 
   const { user } = useSelector((state) => state.users);
@@ -35,7 +30,6 @@ const Profile = () => {
     0
   );
 
-  // ✅ جلب بيانات المستخدم من التوكن
   useEffect(() => {
     const token = cookies.get("token");
     if (token) {
@@ -48,7 +42,6 @@ const Profile = () => {
     }
   }, [dispatch, cookies]);
 
-  // ✅ تحميل بيانات الفورم أول مرة فقط
   useEffect(() => {
     if (user) {
       setForm({
@@ -57,56 +50,48 @@ const Profile = () => {
         email: user.email || "",
       });
     }
-  }, [user?._id]); // يعتمد فقط على تغير الـ user عند التحميل
+  }, [user?._id]);
 
-  // ✅ فتح اختيار الصورة
-  const handleChooseImage = () => {
-    file.current.click();
-  };
+  const handleChooseImage = () => file.current.click();
 
-  // ✅ حفظ التعديلات (الصورة + البيانات)
   const handleSaveChanges = async () => {
     try {
       const token = cookies.get("token");
       const formData = new FormData();
-
       formData.append("name", form.name);
       formData.append("phone", form.phone);
       formData.append("email", form.email);
-      if (image) {
-        formData.append("image", image);
-      }
+      if (image) formData.append("image", image);
 
       const res = await axios.patch(
         `https://restaurants-bc7m.onrender.com/api/users/${user?._id}`,
         formData
       );
-      console.log(res.data)
       toast.success("Profile updated successfully ✅");
-
       const decoded = jwtDecode(token);
       dispatch(getUserById(decoded?.id));
-
-      // إغلاق وضع التعديل
       setEditMode({ name: false, phone: false, email: false });
       setImage(null);
     } catch (error) {
       console.error("Update failed:", error);
-      alert("Failed to update profile ❌");
+      alert("Failed to update profile ");
     }
   };
 
-  // ✅ إلغاء التعديلات
   const handleCancel = () => {
-    if (user) {
+    if (user)
       setForm({
         name: user.name || "",
         phone: user.phone || "",
         email: user.email || "",
       });
-    }
     setEditMode({ name: false, phone: false, email: false });
     setImage(null);
+  };
+
+  const handleLogout = () => {
+    cookies.remove("token", { path: "/" });
+    window.location.href = "/";
   };
 
   return (
@@ -131,7 +116,6 @@ const Profile = () => {
             style={{ display: "none" }}
           />
         </div>
-
         <h1>{user?.name || "Guest"}</h1>
         <p>
           Member since{" "}
@@ -143,7 +127,6 @@ const Profile = () => {
 
       <div className={style.profileContent}>
         <div className={style.userDetails}>
-          {/* Email */}
           <div className={style.infoCard}>
             <h3 className={style.infoTitle}>Email</h3>
             <div className={style.contactInfo}>
@@ -156,7 +139,6 @@ const Profile = () => {
               <img
                 src={updatedIcon}
                 alt="edit"
-                style={{ width: "20px", cursor: "pointer" }}
                 onClick={() =>
                   setEditMode({ ...editMode, email: !editMode.email })
                 }
@@ -164,7 +146,6 @@ const Profile = () => {
             </div>
           </div>
 
-          {/* Name */}
           <div className={style.infoCard}>
             <h3 className={style.infoTitle}>Name</h3>
             <div className={style.contactInfo}>
@@ -177,7 +158,6 @@ const Profile = () => {
               <img
                 src={updatedIcon}
                 alt="edit"
-                style={{ width: "20px", cursor: "pointer" }}
                 onClick={() =>
                   setEditMode({ ...editMode, name: !editMode.name })
                 }
@@ -185,7 +165,6 @@ const Profile = () => {
             </div>
           </div>
 
-          {/* Phone */}
           <div className={style.infoCard}>
             <h3 className={style.infoTitle}>Phone</h3>
             <div className={style.contactInfo}>
@@ -198,7 +177,6 @@ const Profile = () => {
               <img
                 src={updatedIcon}
                 alt="edit"
-                style={{ width: "20px", cursor: "pointer" }}
                 onClick={() =>
                   setEditMode({ ...editMode, phone: !editMode.phone })
                 }
@@ -206,13 +184,11 @@ const Profile = () => {
             </div>
           </div>
 
-          {/* Balance */}
           <div className={style.balanceCard}>
             <h3 className={style.infoTitle}>Account Balance</h3>
             <p className={style.infoValue}>{user?.balance || 0}$</p>
           </div>
 
-          {/* Wishlist */}
           <div className={style.balanceCard}>
             <h3 className={style.infoTitle}>Wishlist</h3>
             <p className={style.infoValue}>{totalQuantity}</p>
@@ -220,17 +196,21 @@ const Profile = () => {
         </div>
       </div>
 
-      {/* ✅ أزرار التحكم */}
-      {(editMode.name || editMode.phone || editMode.email || image) && (
-        <div className={style.buttonsContainer}>
-          <button onClick={handleSaveChanges} className={style.saveButton}>
-            Save Changes
-          </button>
-          <button onClick={handleCancel} className={style.cancelButton}>
-            Cancel
-          </button>
-        </div>
-      )}
+      <div className={style.buttonsContainer}>
+        {(editMode.name || editMode.phone || editMode.email || image) && (
+          <>
+            <button onClick={handleSaveChanges} className={style.saveButton}>
+              Save Changes
+            </button>
+            <button onClick={handleCancel} className={style.cancelButton}>
+              Cancel
+            </button>
+          </>
+        )}
+        <button onClick={handleLogout} className={style.logoutButton}>
+          Logout
+        </button>
+      </div>
     </div>
   );
 };
