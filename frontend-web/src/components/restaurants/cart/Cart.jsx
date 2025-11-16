@@ -12,7 +12,7 @@ const Cart = ({ id, img, name, price, alt }) => {
     <div className={styles.cartItem}>
       <div className={styles.itemImageContainer}>
         <img
-          src={`http://localhost:5000/images/${img}`}
+          src={`https://restaurants-bc7m.onrender.com/images/${img}`}
           alt={alt}
           className={styles.itemImage}
           loading="lazy"

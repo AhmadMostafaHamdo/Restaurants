@@ -92,7 +92,7 @@ const Header = ({ setTranslate }) => {
             <img
               src={
                 user?.image
-                  ? `http://localhost:5000/images/${user.image}`
+                  ? `https://restaurants-bc7m.onrender.com/images/${user.image}`
                   : personal
               }
               alt="Profile"

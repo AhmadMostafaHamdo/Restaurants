@@ -5,13 +5,16 @@ export const streamChat = async (
   onComplete
 ) => {
   try {
-    const response = await fetch("http://localhost:5000/api/chat/stream", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ messages }),
-    });
+    const response = await fetch(
+      "https://restaurants-bc7m.onrender.com/api/chat/stream",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ messages }),
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`Server error: ${response.status}`);

@@ -6,7 +6,7 @@ import { io } from "socket.io-client";
 import Switch from "react-switch";
 
 // Configure socket with reconnection options
-const socket = io("http://localhost:5000", {
+const socket = io("https://restaurants-bc7m.onrender.com/", {
   reconnection: true,
   reconnectionAttempts: 5,
   reconnectionDelay: 1000,
@@ -189,7 +189,7 @@ const Resturants = () => {
                     <td className="align-middle">
                       {restaurant.image && (
                         <img
-                          src={`http://localhost:5000/images/${restaurant.image}`}
+                          src={`https://restaurants-bc7m.onrender.com/images/${restaurant.image}`}
                           alt={restaurant.name}
                           className="img-thumbnail rounded"
                           style={{

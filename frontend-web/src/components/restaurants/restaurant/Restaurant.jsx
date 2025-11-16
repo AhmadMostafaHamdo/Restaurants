@@ -4,7 +4,7 @@ import Rating from "../rating/Rating";
 import { MapPin, Star } from "lucide-react";
 import io from "socket.io-client";
 
-const socket = io("http://localhost:5000"); // تأكد من تطابق العنوان مع خادمك
+const socket = io("https://restaurants-bc7m.onrender.com/"); // تأكد من تطابق العنوان مع خادمك
 
 const RestaurantCard = ({
   id,
@@ -52,7 +52,7 @@ const RestaurantCard = ({
   return (
     <div className={styles.restaurantCard} onClick={handelClick}>
       <img
-        src={`http://localhost:5000/images/${image}`}
+        src={`https://restaurants-bc7m.onrender.com/images/${image}`}
         alt={name}
         className={styles.restaurantImage}
       />

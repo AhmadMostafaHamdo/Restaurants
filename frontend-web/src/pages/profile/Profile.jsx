@@ -78,7 +78,7 @@ const Profile = () => {
       }
 
       const res = await axios.patch(
-        `http://localhost:5000/api/users/${user?._id}`,
+        `https://restaurants-bc7m.onrender.com/api/users/${user?._id}`,
         formData
       );
       console.log(res.data)
@@ -117,7 +117,7 @@ const Profile = () => {
           <img
             src={
               user?.image
-                ? `http://localhost:5000/images/${user.image}`
+                ? `https://restaurants-bc7m.onrender.com/images/${user.image}`
                 : defaultAvatar
             }
             alt="Profile"

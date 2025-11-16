@@ -92,7 +92,7 @@ const List = () => {
             <div className={listTable} key={food._id}>
               <span>
                 <img
-                  src={`http://localhost:5000/images/${food.image}`}
+                  src={`https://restaurants-bc7m.onrender.com/images/${food.image}`}
                   width={40}
                   height={40}
                   alt={food.name}

@@ -7,7 +7,7 @@ import { jwtDecode } from "jwt-decode";
 import { getAllUsers } from "../../redux/users/thunkUsers/getAllUsers";
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:5000");
+const socket = io("https://restaurants-bc7m.onrender.com/");
 
 function DeleveryChat() {
   const [messages, setMessages] = useState([]);
@@ -70,7 +70,7 @@ function DeleveryChat() {
       if (!selectedDelivery || !token) return;
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/message/${selectedDelivery._id}`,
+          `https://restaurants-bc7m.onrender.com/api/message/${selectedDelivery._id}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         const normalized = Array.isArray(res.data)

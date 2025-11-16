@@ -10,7 +10,7 @@ const FoodItem = memo(({ id, name, price, description, image, alt }) => {
       <div className={style.foodItemImgContainer}>
         <img
           className={style.foodItemImg}
-          src={`http://localhost:5000/images/${image}`}
+          src={`https://restaurants-bc7m.onrender.com/images/${image}`}
           alt={alt}
           loading="lazy"
         />

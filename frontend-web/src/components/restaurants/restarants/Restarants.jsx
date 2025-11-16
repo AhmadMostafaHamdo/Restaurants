@@ -7,7 +7,7 @@ import { Container } from "react-bootstrap";
 import { motion } from "framer-motion";
 import "./style.css";
 import Title from "../../common/title/Title";
-const socket = io("http://localhost:5000");
+const socket = io("https://restaurants-bc7m.onrender.com/");
 
 const Restaurants = ({ setRestaurant }) => {
   const dispatch = useDispatch();

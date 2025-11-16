@@ -4,7 +4,7 @@ import { ConnectionState } from "./ConnectionState";
 import { Events } from "./Events";
 import ConnectionManager from "./ConnectionManager";
 import { io } from "socket.io-client";
-export const socket = io("http://localhost:5000");
+export const socket = io("https://restaurants-bc7m.onrender.com/");
 
 export default function Main() {
   const [isConnected, setIsConnected] = useState(socket.connected);
