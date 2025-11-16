@@ -4,6 +4,6 @@ const express = require("express");
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
-  cors: ["http://localhost:3000"],
+  cors: ["https://restaurants-bc7m.onrender.com/"],
 });
 module.exports = { io, app, server };

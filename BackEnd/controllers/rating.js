@@ -96,7 +96,7 @@ module.exports.sendResetLink = async (req, res) => {
       user.resetToken = token;
       user.resetTokenExpire = Date.now() + 1000 * 60 * 10;
       await user.save();
-      const resetLink = `http://localhost:3000/rating/${token}`;
+      const resetLink = `https://restaurants-bc7m.onrender.com/rating/${token}`;
       const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {

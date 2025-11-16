@@ -11,7 +11,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://restaurants-bc7m.onrender.com/",
     methods: ["GET", "POST"],
   },
 });
@@ -22,7 +22,7 @@ connectToDB();
 // Middlewares
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://restaurants-bc7m.onrender.com/",
   })
 );
 app.use(express.json());
